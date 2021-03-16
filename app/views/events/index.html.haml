@@ -1,4 +1,6 @@
-%h1.page-header Recent Events
+%h2.page-header Recent Events
+%p To see more information please click on the Event Name
+
 
 %table.table
   %thead
@@ -8,13 +10,11 @@
       %th{:scope => "col"} Spots Left
       %th{:scope => "col"} Allows Waitlist?
       %th{:scope => "col"} Price
-      %th{:scope => "col"} See All Sessions
   %tbody
     - @events.each do |event|
       %tr
-        %td= link_to "#{event["title"]}", event["web_url"]
+        %td= link_to "#{event["title"].capitalize}", event["web_url"]
         %td= event["provider"]["name"]
         %td= event["available_spots"]
-        %td= event["allows_waitlist"]
-        %td= event["price"]
-        %td= button_to "View Sessions", event_event_sessions_path(event["id"]), method: :get, params: { sessions: event["sessions"]}
+        %td= boolean_formatter(event["allows_waitlist"])
+        %td= formatted_price(event["price"])
