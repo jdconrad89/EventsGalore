@@ -1,0 +1,20 @@
+%h1.page-header Recent Events
+
+%table.table
+  %thead
+    %tr
+      %th{:scope => "col"} Event Name
+      %th{:scope => "col"} Provider
+      %th{:scope => "col"} Spots Left
+      %th{:scope => "col"} Allows Waitlist?
+      %th{:scope => "col"} Price
+      %th{:scope => "col"} See All Sessions
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= link_to "#{event["title"]}", event["web_url"]
+        %td= event["provider"]["name"]
+        %td= event["available_spots"]
+        %td= event["allows_waitlist"]
+        %td= event["price"]
+        %td= button_to "View Sessions", event_event_sessions_path(event["id"]), method: :get, params: { sessions: event["sessions"]}
